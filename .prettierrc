@@ -1,0 +1,29 @@
+{
+  "bracketSpacing": true,
+  "embeddedLanguageFormatting": "auto",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "jsxSingleQuote": false,
+  "printWidth": 80,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "useTabs": false,
+  "vueIndentScriptAndStyle": false,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "jsxBracketSameLine": false,
+  "plugins": ["prettier-plugin-sort-imports"],
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+      "options": {
+        "plugins": ["prettier-plugin-sort-imports"]
+      }
+    }
+  ]
+}
