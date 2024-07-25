@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native'
 import {
-  ITEM_HEIGHT,
   responsiveFontSizeOS,
   responsiveSizeOS,
   SCREEN_WIDTH,
@@ -21,6 +20,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import FastImage from 'react-native-fast-image'
 import Layout from '~/components/Layout'
 import Header from '~/components/Header'
+import Footer from '~/components/Footer'
 import translates from '~/translates'
 import Colors from '~/themes/colors'
 import images from '~/themes/images'
@@ -38,6 +38,7 @@ const productSelector = createSelector(
 
 const CartScreen = () => {
   const dispatch = useAppDispatch()
+
   const { resProductCart } = useAppSelector((state) => productSelector(state))
 
   const memoizedData = useMemo(() => resProductCart, [resProductCart])
@@ -52,21 +53,6 @@ const CartScreen = () => {
     }),
     [],
   )
-
-  const processCartItems = useCallback((cartItems) => {
-    const processedItems = cartItems.reduce((acc, item) => {
-      const existingItem = acc.find(
-        (items) => items.productId === item.productId,
-      )
-      if (existingItem) {
-        existingItem.quantity += 1
-      } else {
-        acc.push({ ...item, quantity: 1 })
-      }
-      return acc
-    }, [])
-    return processedItems
-  }, [])
 
   const updateQuantily = useCallback((item) => {}, [])
 
@@ -91,6 +77,19 @@ const CartScreen = () => {
     },
     [],
   )
+
+  const handleTotalPrice = useMemo(() => {
+    const result = resProductCart.reduce(
+      (total, item) =>
+        total +
+        item?.productCost * item?.quantity +
+        (item?.productCost * item?.productTax * item?.quantity) / 100,
+      0,
+    )
+    return parseInt(result)
+  }, [resProductCart])
+
+  const renderItem = useCallback(({ item }) => <ProductItem item={item} />, [])
 
   const ProductItem = React.memo(({ item }) => (
     <View style={styles.viewContentItem}>
@@ -158,8 +157,6 @@ const CartScreen = () => {
     </View>
   ))
 
-  const renderItem = useCallback(({ item }) => <ProductItem item={item} />, [])
-
   return (
     <Layout style={styles.container}>
       <Header barStyle="dark-content" title={translates.productDetailTitle} />
@@ -181,14 +178,16 @@ const CartScreen = () => {
           />
         </View>
       </SafeAreaView>
-      {/* <Footer disableShadown backgroundColor="white">
-            <Button
-            title={'Thanh toán'}
-            onPress={handleNext}
-            textStyle={styles.viewInputButtonText}    
-            style={styles.viewInputButton}
-            />
-        </Footer> */}
+      <Footer disableShadown backgroundColor={Colors.bgWhite2}>
+        <View style={styles.viewPayment}>
+          <Text
+            style={styles.txtPrice}
+          >{`Total Price: ${handleTotalPrice} USD`}</Text>
+          <TouchableOpacity style={styles.btnPayment}>
+            <Text style={styles.txtPayment}>Thanh toán</Text>
+          </TouchableOpacity>
+        </View>
+      </Footer>
     </Layout>
   )
 }
@@ -335,5 +334,29 @@ const styles = StyleSheet.create({
   txtDeleteProduct: {
     color: Colors.txtWhite,
     fontSize: responsiveFontSizeOS(12),
+  },
+  viewPayment: {
+    width: '100%',
+    height: responsiveSizeOS(40),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: responsiveSizeOS(12),
+  },
+  btnPayment: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    borderRadius: responsiveSizeOS(12),
+    paddingHorizontal: responsiveSizeOS(6),
+    paddingVertical: responsiveSizeOS(4),
+  },
+  txtPayment: {
+    color: Colors.txtWhite,
+    fontSize: responsiveFontSizeOS(16),
+  },
+  txtPrice: {
+    color: 'black',
+    fontSize: responsiveFontSizeOS(16),
   },
 })

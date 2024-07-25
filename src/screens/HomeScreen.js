@@ -56,7 +56,6 @@ const HomeScreen = () => {
   const navigation = React.useContext(NavigationContext)
   const dispatch = useAppDispatch()
   const [productList, setProductList] = useState([])
-  const [productMuti, setProductMuti] = useState([])
   const [productDetail, setProductDetail] = useState(null)
   const [findWord, setFindWord] = useState(null)
   const [changeDetailVisible, toggleChangeDetailVisible] = useToggleState(false)
@@ -65,7 +64,7 @@ const HomeScreen = () => {
     (items) => () => {
       dispatch(addProductCart(items))
     },
-    [productMuti],
+    [],
   )
 
   const openProductDetail = useCallback((item) => {
@@ -140,6 +139,12 @@ const HomeScreen = () => {
     dispatch(createProductTotal(productData))
   }, [])
 
+  const handleQuantityTotal = useMemo(
+    () =>
+      resProductCart.reduce((total, item) => total + item?.quantity ?? 0, 0),
+    [resProductCart],
+  )
+
   const ProductItem = React.memo(({ item }) => (
     <View style={styles.viewItem}>
       <FastImage
@@ -188,12 +193,6 @@ const HomeScreen = () => {
   useEffect(() => {
     setProductList(resProductTotal)
   }, [resProductTotal])
-
-  const handleQuantityTotal = useMemo(
-    () =>
-      resProductCart.reduce((total, item) => total + item?.quantity ?? 0, 0),
-    [resProductCart],
-  )
 
   return (
     <Layout style={styles.container}>
@@ -259,6 +258,7 @@ const HomeScreen = () => {
         toggleModalVisible={toggleChangeDetailVisible}
         modalTitle={'Product Detail'}
         productData={productDetail}
+        onPressDelete={handleWarningRemove}
       />
     </Layout>
   )

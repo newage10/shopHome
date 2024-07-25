@@ -41,6 +41,11 @@ const ModalDetailProduct = (props) => {
     productTax && setProductTax(productTax.toString())
   }, [productData?.productId])
 
+  const handleRemove = useCallback(() => {
+    onPressDelete(productData)()
+    handleClose()
+  }, [productData])
+
   return (
     <Modal
       propagateSwipe
@@ -106,10 +111,7 @@ const ModalDetailProduct = (props) => {
           />
         </View>
         <View style={styles.viewSubmitRow}>
-          <TouchableOpacity
-            style={styles.viewTwoSubmit}
-            onPress={onPressDelete}
-          >
+          <TouchableOpacity style={styles.viewTwoSubmit} onPress={handleRemove}>
             <Text style={styles.txtSubmit}>{'Xoá'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
