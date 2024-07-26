@@ -25,7 +25,7 @@ import translates from '~/translates'
 import Colors from '~/themes/colors'
 import images from '~/themes/images'
 
-const selectProductStore = (state) => state?.productReducer?.resProductCart
+const selectProductStore = (state) => state.productReducer?.resProductCart ?? []
 
 const productSelector = createSelector(
   [selectProductStore],
@@ -76,8 +76,8 @@ const CartScreen = () => {
     const result = resProductCart.reduce(
       (total, item) =>
         total +
-        item?.productCost * item?.quantity +
-        (item?.productCost * item?.productTax * item?.quantity) / 100,
+        item.productCost * item.quantity +
+        (item.productCost * item.productTax * item.quantity) / 100,
       0,
     )
     return parseInt(result)
@@ -89,23 +89,21 @@ const CartScreen = () => {
     <View style={styles.viewContentItem}>
       <View style={styles.viewItem}>
         <FastImage
-          source={{ uri: item?.productImages?.[0] }}
+          source={{ uri: item.productImages[0] }}
           style={styles.imageItem}
           resizeMode="contain"
         />
         <View style={styles.viewRightItem}>
           <Text style={styles.txtName} numberOfLines={1} ellipsizeMode="tail">
-            {item?.productName}
+            {item.productName}
           </Text>
           <Text
             style={styles.txtDesc}
             numberOfLines={2}
             ellipsizeMode="tail"
-          >{`Description:  ${item?.productDesc}`}</Text>
-          <Text
-            style={styles.txtDefault}
-          >{`Cost: ${item?.productCost} $`}</Text>
-          <Text style={styles.txtDefault}>{`Tax: ${item?.productTax} %`}</Text>
+          >{`Description:  ${item.productDesc}`}</Text>
+          <Text style={styles.txtDefault}>{`Cost: ${item.productCost} $`}</Text>
+          <Text style={styles.txtDefault}>{`Tax: ${item.productTax} %`}</Text>
         </View>
       </View>
       <View style={styles.viewBottomItem}>
@@ -118,7 +116,7 @@ const CartScreen = () => {
             />
           </TouchableOpacity>
           <TextInput
-            value={item?.quantity?.toString() ?? '1'}
+            value={item.quantity.toString() ?? '1'}
             style={styles.viewInputText}
             placeholder="1"
             autoCorrect={false}

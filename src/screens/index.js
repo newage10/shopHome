@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import { StyleSheet, Text, View } from 'react-native'
 import RegisterScreen from './RegisterScreen'
 import { getStorage } from '~/helper/methods'
 import SCREENS from '../constant/screens'
@@ -41,5 +40,3 @@ const ScreensContainer = () => {
 }
 
 export default ScreensContainer
-
-const styles = StyleSheet.create({})
