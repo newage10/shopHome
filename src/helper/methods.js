@@ -8,7 +8,6 @@ export const handleError = (error) => {
 
 export const setStorage = async (key, value) => {
   try {
-    console.log('Test data set: ', key, JSON.stringify(value))
     await EncryptedStorage.setItem(key, JSON.stringify(value))
   } catch (error) {
     handleError(error)
@@ -18,7 +17,6 @@ export const setStorage = async (key, value) => {
 export const getStorage = async (key) => {
   try {
     const data = await EncryptedStorage.getItem(key)
-    console.log('Test data get: ', key, JSON.stringify(data))
     return data ? JSON.parse(data) : undefined
   } catch (error) {
     handleError(error)

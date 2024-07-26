@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { responsiveFontSizeOS } from '~/helper/GeneralMain'
+import { responsiveFontSizeOS, responsiveSizeOS } from '~/helper/GeneralMain'
 import React, { Component } from 'react'
 import Colors from '~/themes/colors'
 
@@ -27,7 +27,7 @@ export class HeaderPopup extends Component {
           onPress={onClose}
           style={[styles.containerClose, styleButton]}
         >
-          <Image source={images.iconPopupClose} />
+          <Image source={images.icClosePopup} style={styles.imgClose} />
         </TouchableOpacity>
       </View>
     )
@@ -54,5 +54,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
     right: 25,
+  },
+  imgClose: {
+    width: responsiveSizeOS(12),
+    height: responsiveSizeOS(12),
+    resizeMode: 'contain',
   },
 })

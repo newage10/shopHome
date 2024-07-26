@@ -13,9 +13,9 @@ import {
   responsiveSizeOS,
   SCREEN_WIDTH,
 } from '~/helper/GeneralMain'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { removeProductCart } from '~/redux/product/product.actions'
 import { useAppDispatch, useAppSelector } from '~/configs/hooks'
+import React, { useCallback, useMemo } from 'react'
 import { createSelector } from '@reduxjs/toolkit'
 import FastImage from 'react-native-fast-image'
 import Layout from '~/components/Layout'
@@ -53,12 +53,6 @@ const CartScreen = () => {
     }),
     [],
   )
-
-  const updateQuantily = useCallback((item) => {}, [])
-
-  const handleQuantityNext = useCallback(() => {}, [])
-
-  const handleQuantityPrev = useCallback(() => {}, [])
 
   const handleRemoveProduct = useCallback(
     (item) => () => {
@@ -116,10 +110,7 @@ const CartScreen = () => {
       </View>
       <View style={styles.viewBottomItem}>
         <View style={styles.viewBottomLeft}>
-          <TouchableOpacity
-            style={styles.viewMinusPlus}
-            onPress={handleQuantityNext}
-          >
+          <TouchableOpacity style={styles.viewMinusPlus}>
             <FastImage
               source={images.icMinus}
               style={styles.imgAcc}
@@ -128,7 +119,6 @@ const CartScreen = () => {
           </TouchableOpacity>
           <TextInput
             value={item?.quantity?.toString() ?? '1'}
-            onChangeText={(e) => updateQuantily(e)}
             style={styles.viewInputText}
             placeholder="1"
             autoCorrect={false}
@@ -136,10 +126,7 @@ const CartScreen = () => {
             allowFontScaling={false}
             keyboardType="number-pad"
           />
-          <TouchableOpacity
-            style={styles.viewMinusPlus}
-            onPress={handleQuantityPrev}
-          >
+          <TouchableOpacity style={styles.viewMinusPlus}>
             <FastImage
               source={images.icPlus}
               style={styles.imgAcc}
@@ -184,7 +171,7 @@ const CartScreen = () => {
             style={styles.txtPrice}
           >{`Total Price: ${handleTotalPrice} USD`}</Text>
           <TouchableOpacity style={styles.btnPayment}>
-            <Text style={styles.txtPayment}>Thanh toán</Text>
+            <Text style={styles.txtPayment}>Payment</Text>
           </TouchableOpacity>
         </View>
       </Footer>

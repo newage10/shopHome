@@ -17,3 +17,15 @@ export const createProductTotal = (payload, callback) => ({
   payload,
   callback,
 })
+
+export const plusQuantityProduct = (payload, callback) => ({
+  type: types.PLUS_QUANTITY_PRODUCT,
+  payload,
+  callback,
+})
+
+export const minusQuantityProduct = (payload, callback) => ({
+  type: types.MINUS_QUANTITY_PRODUCT,
+  payload,
+  callback,
+})

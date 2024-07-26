@@ -34,10 +34,10 @@ import SCREENS from '~/constant/screens'
 import Colors from '~/themes/colors'
 import images from '~/themes/images'
 
-const selectProductCart = (state) => state?.productReducer?.resProductCart ?? []
+const selectProductCart = (state) => state.productReducer?.resProductCart ?? []
 
 const selectProductTotal = (state) =>
-  state?.productReducer?.resProductTotal ?? []
+  state.productReducer?.resProductTotal ?? []
 
 const productSelector = createSelector(
   [selectProductCart, selectProductTotal],
@@ -148,7 +148,7 @@ const HomeScreen = () => {
   const ProductItem = React.memo(({ item }) => (
     <View style={styles.viewItem}>
       <FastImage
-        source={{ uri: item?.productImages?.[0] }}
+        source={{ uri: item.productImages[0] }}
         style={styles.imageItem}
         resizeMode="contain"
       />
@@ -159,7 +159,7 @@ const HomeScreen = () => {
         style={styles.txtDesc}
         numberOfLines={2}
         ellipsizeMode="tail"
-      >{`Description:  ${item?.productDesc}`}</Text>
+      >{`Description:  ${item.productDesc}`}</Text>
       <Text style={styles.txtDefault}>{`Cost: ${item?.productCost} $`}</Text>
       <Text style={styles.txtDefault}>{`Tax: ${item?.productTax} %`}</Text>
       <View style={styles.viewAction}>

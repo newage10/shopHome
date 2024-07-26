@@ -7,9 +7,9 @@ import {
   Alert,
 } from 'react-native'
 import { responsiveFontSizeOS, responsiveSizeOS } from '~/helper/GeneralMain'
-import { useAppDispatch, useAppSelector } from '~/configs/hooks'
 import React, { useCallback, useEffect, useState } from 'react'
 import { HeaderPopup } from '~/components/HeaderPopup'
+import { useAppDispatch } from '~/configs/hooks'
 import Modal from 'react-native-modal'
 
 const ModalDetailProduct = (props) => {
@@ -253,6 +253,8 @@ const styles = StyleSheet.create({
   },
   styleButton: {
     right: 0,
+    width: responsiveSizeOS(12),
+    height: responsiveSizeOS(12),
     marginRight: responsiveSizeOS(12),
   },
 })

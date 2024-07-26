@@ -4,7 +4,7 @@ export const storeToken = async (token) => {
   try {
     await AsyncStorage.setItem('userToken', token)
   } catch (error) {
-    // Xử lý lỗi
+    console.log('Error storeToken: ', error)
   }
 }
 
@@ -13,6 +13,6 @@ export const getToken = async () => {
     const token = await AsyncStorage.getItem('userToken')
     return token
   } catch (error) {
-    // Xử lý lỗi
+    console.log('Error getToken: ', error)
   }
 }

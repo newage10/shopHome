@@ -12,7 +12,7 @@ export default function productReducer(state = initialState, action) {
       let productData = [...state?.resProductCart] ?? []
       const productItem = action?.payload ?? {}
       const productIndex = productData.findIndex(
-        (items) => items?.productId === productItem?.productId,
+        (items) => items.productId === productItem?.productId,
       )
       if (productIndex !== -1) {
         productData[productIndex].quantity += 1
@@ -39,7 +39,7 @@ export default function productReducer(state = initialState, action) {
     case types.REMOVE_PRODUCT_CART:
       const { productId } = action?.payload ?? {}
       const newData = state?.resProductCart.filter(
-        (item) => item?.productId !== productId,
+        (item) => item.productId !== productId,
       )
       return {
         ...state,
@@ -49,6 +49,21 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         resProductTotal: action?.payload,
+      }
+    case types.PLUS_QUANTITY_PRODUCT:
+      const itemIndex = [...state?.resProductCart].findIndex(
+        (items) => items.productId === action?.payload?.productId,
+      )
+      if (itemIndex !== -1) {
+        ;[...state?.resProductCart][itemIndex].quantity += 1
+      }
+      return {
+        ...state,
+        resProductCart: [...state?.resProductCart],
+      }
+    case types.MINUS_QUANTITY_PRODUCT:
+      return {
+        ...state,
       }
     default:
       return state

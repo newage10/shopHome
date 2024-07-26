@@ -69,7 +69,6 @@ const RegisterScreen = () => {
         address: address,
         birthday: birthday,
       }
-      console.log('Test 3 isSubmit: ', isSubmit)
       if (isSubmit) {
         await setStorage('userInfo', userData)
         navigation.dispatch(StackActions.replace(SCREENS.HOME))
@@ -77,7 +76,6 @@ const RegisterScreen = () => {
         Alert.alert('Thông báo', 'Đăng ký thất bại. Vui lòng kiểm tra lại.')
       }
     } catch (error) {
-      console.log('Error during registration: ', error)
       Alert.alert('Thông báo', 'Lỗi kết nối mạng hoặc máy chủ.')
     }
   }, [phoneNumber, fullName, email, address, birthday, isSubmit])
